@@ -1,6 +1,10 @@
-require "project1/version"
+require_relative './project1/version'
+require 'nokogiri'
+require 'pry'
+require 'open-uri'
 
-module Project1
-  class Error < StandardError; end
-  # Your code goes here...
-end
+require_relative './project1/cli'
+require_relative './project1/fund'
+require_relative './project1/version'
+require_relative './project1/category'
+require_relative './project1/scraper'

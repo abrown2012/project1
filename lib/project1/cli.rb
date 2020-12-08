@@ -4,7 +4,7 @@ class Project1::CLI
         puts "Welcome!"
         list_categories
         menu_categories
-        goodbye
+        
     end 
 
     def menu_categories
@@ -12,49 +12,36 @@ class Project1::CLI
         while input != "exit"
             puts 'Please enter the number corresponding to the category of your interest, type "categories" to see the categories again, or type "exit" to close the program:'
             input = gets.strip.downcase
-            if input.to_i > 0 
+            if input.to_i > 0 && input.to_i <= @categories.count
                 the_category = @categories[input.to_i-1]
                 puts "Here are the mutual funds in the #{the_category.name} category:"
+                print_selected(the_category.name)
             elsif input == "categories"
                 list_categories 
+            elsif input == "exit"
+                goodbye
             else 
-                puts 'I did not get that. enter the number corresponding to the category of your interest, type "categories" to see the categories again, or type "exit" to close the program:'
+                puts "Sorry, I did not understand that answer."
             end
         end
     end 
     
     def list_categories 
         puts "Here are the categories of our mutual funds:"
-      
-        @categories = Project1::Category.today.flatten
+        @categories = Project1::Scraper.new.print_categories
         @categories.each.with_index(1) do |category, i|
-            puts "#{i}. #{category}"
+            puts "#{i}. #{category.name}"
         end 
     end 
 
-    def list_funds 
-        puts "Here are our mutual funds:"
-      
-        @funds = Project1::Fund.today
-        @funds.each.with_index(1) do |fund, i|
-            puts "#{1}. #{fund}"
+    def print_selected(selected_category)
+        
+        @funds = Project1::Scraper.new.print_funds
+        @funds.each do |fund|
+            if fund.category == selected_category
+                puts "#{fund.name} - #{fund.symbol} 1-YR return: #{fund.one_yr_return}% 2-YR return: #{fund.two_yr_return}% 3-YR return: #{fund.three_yr_return}%."
+            end 
         end 
-    end 
-
-    def menu
-        input = nil 
-        while input != "exit"
-        puts "Enter the number corresponding to the selected mutual fund, type list to see the funds again, or type exit to close the program:"
-        input = gets.strip.downcase
-            if input.to_i > 0 
-                the_fund = @funds[input.to_i-1]
-                puts "#{the_fund.name} - #{the_fund.price}"
-            elsif input == "list"
-                list_funds 
-            else 
-                puts 'Sorry, I did not get that. Enter the number corresponding to the selected mutual fund, type list to see the funds again, or type exit to close the program:'
-            end
-        end
     end 
 
     def goodbye

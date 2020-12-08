@@ -1,32 +1,15 @@
 class Project1::Category 
 
-    attr_accessor :name
+    attr_accessor :name, :url_value
 
-    def self.today
-        # scrape troweprice and return funds based on that data 
-        self.scrape_categories
+    @@all = []
+
+    def initialize
+        @@all << self 
     end 
 
-    def self.scrape_categories
-        categories = []
-
-        categories << self.scrape_klippinger
-        #go to TRowePrice, find the mutual funds 
-        #extract the properties
-        #instantiate a fund
-        categories
+    def self.all
+        @@all 
     end 
-
-    def self.scrape_klippinger
-        doc = Nokogiri::HTML(open("https://www.kiplinger.com/kiplinger-tools/investing/t041-s001-top-performing-mutual-funds/index.php"))
-        
-        categories = doc.css("form#form1").text.strip!.split(/\n/).drop(1)
-        categories.each do |category_title|
-            category = self.new 
-            category.name = category_title.strip! 
-        end 
-        
-        
-    end 
-
+       
 end
