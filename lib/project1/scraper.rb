@@ -37,9 +37,9 @@ class Project1::Scraper
     end 
 
 
-    def make_funds(url)
+    def make_funds
         j = 0 
-        self.get_funds_by_category(url).each do |fund_data|
+        self.get_funds.each do |fund_data|
             i = 0 
             while i < 500
                 fund = Project1::Fund.new 
@@ -53,7 +53,7 @@ class Project1::Scraper
             end 
             j +=1
         end 
-        binding.pry
+        
     end
 
     def make_categories 

@@ -1,6 +1,9 @@
 class Project1::CLI
 
     def call 
+        Project1::Scraper.new.make_categories
+        Project1::Scraper.new.make_funds
+        puts ""
         puts "Welcome!"
         list_categories
         menu_categories
@@ -12,6 +15,7 @@ class Project1::CLI
         while input != "exit"
             puts 'Please enter the number corresponding to the category of your interest, type "categories" to see the categories again, or type "exit" to close the program:'
             input = gets.strip.downcase
+            @categories = Project1::Category.all
             if input.to_i > 0 && input.to_i <= @categories.count
                 the_category = @categories[input.to_i-1]
                 puts "Here are the mutual funds in the #{the_category.name} category:"
@@ -28,15 +32,15 @@ class Project1::CLI
     
     def list_categories 
         puts "Here are the categories of our mutual funds:"
-        @categories = Project1::Scraper.new.print_categories
-        @categories.each.with_index(1) do |category, i|
+        
+        Project1::Category.all.each.with_index(1) do |category, i|
             puts "#{i}. #{category.name}"
         end 
     end 
 
     def print_selected(selected_category)
         
-        @funds = Project1::Scraper.new.print_funds(selected_category.url_value)
+        @funds = Project1::Fund.all
         @funds.each do |fund|
             if fund.category == selected_category.name
                 puts "#{fund.name} - #{fund.symbol} 1-YR return: #{fund.one_yr_return}% 2-YR return: #{fund.two_yr_return}% 3-YR return: #{fund.three_yr_return}%."
