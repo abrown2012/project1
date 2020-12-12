@@ -48,18 +48,17 @@ class Project1::Scraper
                 fund.one_yr_return = fund_data[i+2].text
                 fund.two_yr_return = fund_data[i+3].text
                 fund.three_yr_return = fund_data[i+4].text
-                fund.category = get_categories[j].strip!
+                fund.category = get_categories[j].strip![15..-1]
                 i += 10 
             end 
             j +=1
         end 
-        
     end
 
     def make_categories 
         self.get_categories.each_with_index do |category_name, i|
             category = Project1::Category.new 
-            category.name = category_name.strip!
+            category.name = category_name.strip![15..-1]
             category.url_value = get_url_value[i]
         end 
     end 

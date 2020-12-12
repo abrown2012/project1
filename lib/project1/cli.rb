@@ -32,20 +32,22 @@ class Project1::CLI
     
     def list_categories 
         puts "Here are the categories of our mutual funds:"
-        
+        categories_table = TTY::Table.new(header: ["Id", "Category"])
         Project1::Category.all.each.with_index(1) do |category, i|
-            puts "#{i}. #{category.name}"
+            categories_table << ["#{i}".blue,  "#{category.name}"]
         end 
+        puts categories_table.render(:unicode)
     end 
 
     def print_selected(selected_category)
-        
+        funds_table = TTY::Table.new(header: ["Name", "Symbol", "1-Yr Return", "2-Yr Return", "3-Yr Return"])
         @funds = Project1::Fund.all
         @funds.each do |fund|
             if fund.category == selected_category.name
-                puts "#{fund.name} - #{fund.symbol} 1-YR return: #{fund.one_yr_return}% 2-YR return: #{fund.two_yr_return}% 3-YR return: #{fund.three_yr_return}%."
+                funds_table << ["#{fund.name}".blue, "#{fund.symbol}".red, "#{fund.one_yr_return}".green, "#{fund.two_yr_return}".green, "#{fund.three_yr_return}".green]
             end 
         end 
+        puts funds_table.render(:unicode)
     end 
 
     def goodbye
