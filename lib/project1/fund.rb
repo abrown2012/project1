@@ -1,6 +1,6 @@
 class Project1::Fund 
 
-    attr_accessor :name, :category, :symbol, :one_yr_return, :three_yr_return, :five_yr_return
+    attr_accessor :name, :category, :symbol, :one_yr_return, :three_yr_return, :five_yr_return, :ten_yr_return, :twenty_yr_return
 
     @@all = []
 

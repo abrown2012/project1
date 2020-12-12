@@ -40,11 +40,11 @@ class Project1::CLI
     end 
 
     def print_selected(selected_category)
-        funds_table = TTY::Table.new(header: ["Name", "Symbol", "1-Yr Return", "3-Yr Return", "5-Yr Return"])
+        funds_table = TTY::Table.new(header: ["Name", "Symbol", "1-Yr Return", "3-Yr Return", "5-Yr Return", "10-Yr Return", "20-Yr Return"])
         @funds = Project1::Fund.all
         @funds.each do |fund|
             if fund.category == selected_category.name
-                funds_table << ["#{fund.name}".blue, "#{fund.symbol}".red, "#{fund.one_yr_return}%".green, "#{fund.three_yr_return}%".green, "#{fund.five_yr_return}%".green]
+                funds_table << ["#{fund.name}".blue, "#{fund.symbol}".red, "#{fund.one_yr_return}%".green, "#{fund.three_yr_return}%".green, "#{fund.five_yr_return}%".green, "#{fund.ten_yr_return}%".green, "#{fund.twenty_yr_return}%".green]
             end 
         end 
         puts funds_table.render(:unicode)

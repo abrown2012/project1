@@ -48,6 +48,8 @@ class Project1::Scraper
                 fund.one_yr_return = fund_data[i+2].text.tr('%', '')
                 fund.three_yr_return = fund_data[i+3].text.tr('%', '')
                 fund.five_yr_return = fund_data[i+4].text.tr('%', '')
+                fund.ten_yr_return = fund_data[i+5].text.tr('%', '')
+                fund.twenty_yr_return = fund_data[i+6].text.tr('%', '')
                 fund.category = get_categories[j].strip![15..-1]
                 i += 10 
             end 
