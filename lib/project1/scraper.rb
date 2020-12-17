@@ -29,14 +29,6 @@ class Project1::Scraper
         all_funds
     end 
 
-    def get_funds_by_category(url)
-        all_funds = []
-        doc = Nokogiri::HTML(open("https://www.kiplinger.com/kiplinger-tools/investing/t041-s001-top-performing-mutual-funds/index.php?table_select=#{url}"))
-        all_funds << doc.css("td.col")
-        all_funds
-    end 
-
-
     def make_funds
         j = 0 
         self.get_funds.each do |fund_data|
